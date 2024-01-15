@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserLibraryAccount
+from .models import UserHotelAccount
 # Register your models here.
 
-admin.site.register(UserLibraryAccount)
+admin.site.register(UserHotelAccount)

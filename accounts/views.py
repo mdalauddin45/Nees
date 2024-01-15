@@ -6,23 +6,75 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
 from django.contrib import messages
+from room.models import RoomPurchase
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.template.loader import render_to_string
+from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.views import View
+
 
 # Create your views here.
 class UserRegistrationView(FormView):
     template_name = 'accounts/user_registration.html'
     form_class = UserRegistrationForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('login')
     
-    def form_valid(self,form):
-        print(form.cleaned_data)
+    def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
-        print(user)
-        messages.success(self.request, "After registration , Login successfully")
-        return super().form_valid(form)
-    
+        
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        confirm_link = f'http://127.0.0.1:8000/accounts/active/{uid}/{token}'
+        email_subject = "Confirm Your Email"
+        email_body = render_to_string('accounts/confirm_email.html', {'confirm_link': confirm_link})
+        send_email = EmailMultiAlternatives(email_subject, '', to=[user.email])
+        send_email.attach_alternative(email_body, "text/html")
+        send_email.send()
 
+        messages.success(self.request, "Check your email for confirmation.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+  
+# def activate(request, uid64, token):
+#     print(uid64 , token)
+#     try:
+#         uid = urlsafe_base64_decode(uid64).decode()
+#         user = User._default_manager.get(pk=uid)
+#     except(User.DoesNotExist):
+#         user = None
+#     if user is not None and default_token_generator.check_token(user, token):
+#         user.is_active = True
+#         user.save()
+#         return redirect('login')
+#     else:
+#       return redirect('register')
+  
+class VerificationView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = get_user_model().objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
+            user = None
+
+        if user is not None and default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.success(request, 'Your account has been activated. You can now log in.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Invalid activation link. Please try again or contact support.')
+            return redirect('register') 
+    
 class UserLoginView(LoginView):
     template_name = 'accounts/user_login.html'
     def get_success_url(self):
@@ -41,7 +93,7 @@ class ProfileView(LoginRequiredMixin, ListView):
     balance = 0
 
     def get(self, request):
-        user_purchases = Bookpurchase.objects.filter(user=request.user)
+        user_purchases = RoomPurchase.objects.filter(user=request.user)
         account_balance = request.user.account.balance
 
         form = UserUpdateForm(instance=request.user)
@@ -58,3 +110,4 @@ class ProfileView(LoginRequiredMixin, ListView):
             messages.success(request, 'Profile updated successfully!')
             return redirect('profile')
         return render(request, self.template_name, {'form': form})
+

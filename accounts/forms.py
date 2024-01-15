@@ -1,39 +1,54 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import UserLibraryAccount
+from .models import UserHotelAccount
 from django.contrib.auth.forms import UserCreationForm
-from accounts.models import UserLibraryAccount
 
 class UserRegistrationForm(UserCreationForm):
-    birth_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
+    birth_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
-        model = User 
-        fields = [ 'username','password1', 'password2', 'first_name', 'last_name', 'birth_date','email']
-    
+        model = User
+        fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'birth_date', 'email']
+
     def save(self, commit=True):
+        username = self.cleaned_data['username']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
+        email = self.cleaned_data.get('email')
+        password = self.cleaned_data['password1']
+        password2 = self.cleaned_data['password2']
+
+        if password != password2:
+            raise forms.ValidationError({'Error': 'Passwords do not match'})
+
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError({'Error': 'username already exists'})
+
         our_user = super().save(commit=False)
-        if commit == True:
+        if commit:
+            our_user.is_active = False
             our_user.save()
+
             birth_date = self.cleaned_data.get('birth_date')
-            UserLibraryAccount.objects.create(
-                user = our_user,
-                birth_date =birth_date,
-                account_no = 1000 + our_user.id
+            UserHotelAccount.objects.create(
+                user=our_user,
+                birth_date=birth_date,
+                account_no=1000 + our_user.id
             )
-        return our_user     
-    
+
+        return our_user
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         for field in self.fields:
             self.fields[field].widget.attrs.update({
-                
-                'class' : (
+                'class': (
                     'appearance-none block w-full bg-gray-200 '
                     'text-gray-700 border border-gray-200 rounded '
                     'py-3 px-4 leading-tight focus:outline-none '
                     'focus:bg-white focus:border-gray-500'
-                ) 
+                )
             })
             
 class UserUpdateForm(forms.ModelForm):
@@ -56,7 +71,7 @@ class UserUpdateForm(forms.ModelForm):
         if self.instance:
             try:
                 user_account = self.instance.account
-            except UserLibraryAccount.DoesNotExist:
+            except UserHotelAccount.DoesNotExist:
                 user_account = None
 
             if user_account:
@@ -67,7 +82,7 @@ class UserUpdateForm(forms.ModelForm):
         if commit:
             user.save()
 
-            user_account, created = UserLibraryAccount.objects.get_or_create(user=user)
+            user_account, created = UserHotelAccount.objects.get_or_create(user=user)
             user_account.birth_date = self.cleaned_data['birth_date']
             user_account.save()
 

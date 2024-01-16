@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import UserReviews
+from django.views.generic.edit import DeleteView
+
 
 
 # Create your views here.
@@ -73,17 +75,17 @@ class PurchaseView(View):
         # send_transaction_email(self.request.user,room.price,"Purchase Message", 'transactions/purchase_email.html' )
         return redirect('profile')
 
-def delete_review(request, review_id):
-    # Ensure the request is a POST request
-    if request.method == 'POST':
-        # Get the review object or return a 404 response if not found
-        review = get_object_or_404(UserReviews, id=review_id, user=request.user)
+class ReviewDeleteView(DeleteView):
+    model = UserReviews
+    template_name = 'delete_confirm.html' 
 
-        # Delete the review
-        review.delete()
+    def get_success_url(self):
+        messages.success(self.request, 'Review deleted successfully.')
+        return reverse_lazy('profile')
 
-        messages.success(request, 'Review deleted successfully.')
-        return redirect('profile')  # Redirect to the user's profile or any other desired page
-
-    # If the request is not a POST request, you can handle it as needed
-    return render(request, 'details_room.html')
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.user != request.user:
+            messages.error(request, 'You do not have permission to delete this review.')
+            return redirect('profile')
+        return super().dispatch(request, *args, **kwargs)

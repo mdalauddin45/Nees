@@ -7,13 +7,13 @@ from django.views.generic import DetailView
 from .models import Room , RoomPurchase
 from django.contrib import messages
 from django.views import View
-from .forms import ReviewForm
+from .forms import ReviewForm, ReviewUpdateForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import UserReviews
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView,UpdateView
 
 
 
@@ -89,3 +89,18 @@ class ReviewDeleteView(DeleteView):
             messages.error(request, 'You do not have permission to delete this review.')
             return redirect('profile')
         return super().dispatch(request, *args, **kwargs)
+
+class ReviewUpdateView(UpdateView):
+    model = UserReviews
+    form_class = ReviewUpdateForm
+    template_name = 'edit_review.html'
+    success_url = reverse_lazy('profile')  
+
+    def get_object(self, queryset=None):
+        review_id = self.kwargs.get('review_id')
+        return get_object_or_404(UserReviews, id=review_id)
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Review updated successfully!')
+        return response

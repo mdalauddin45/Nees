@@ -36,3 +36,8 @@ class ReviewForm(forms.ModelForm):
             raise forms.ValidationError("You must purchase the Room to leave a review.")
 
         return cleaned_data
+
+class ReviewUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserReviews
+        fields = ['rating', 'body']

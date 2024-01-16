@@ -37,7 +37,7 @@
               <p>{{ c.rating }}</p>
               <p>{{ c.created_on }}</p>
               {% if user.is_authenticated and user == c.user %}
-              <a href="{% url 'delete_review' c.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Edit</a>
+              <a href="{% url 'update_review' c.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">Edit</a>
               <a href="{% url 'delete_review' c.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">delete</a>
           {% endif %}
             </div>

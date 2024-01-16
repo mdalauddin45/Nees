@@ -1,8 +1,6 @@
 from typing import Any
 from .import forms
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from .import models
 from django.views.generic import DetailView
 from .models import Room , RoomPurchase
 from django.contrib import messages
@@ -10,12 +8,11 @@ from django.views import View
 from .forms import ReviewForm, ReviewUpdateForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from .models import UserReviews
 from django.views.generic.edit import DeleteView,UpdateView
 from transactions.views import send_transaction_email
-
 
 # Create your views here.
 

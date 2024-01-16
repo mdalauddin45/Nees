@@ -42,21 +42,6 @@ class UserRegistrationView(FormView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
-
-  
-# def activate(request, uid64, token):
-#     print(uid64 , token)
-#     try:
-#         uid = urlsafe_base64_decode(uid64).decode()
-#         user = User._default_manager.get(pk=uid)
-#     except(User.DoesNotExist):
-#         user = None
-#     if user is not None and default_token_generator.check_token(user, token):
-#         user.is_active = True
-#         user.save()
-#         return redirect('login')
-#     else:
-#       return redirect('register')
   
 class VerificationView(View):
     def get(self, request, uidb64, token):

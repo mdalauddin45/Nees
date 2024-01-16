@@ -14,7 +14,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import UserReviews
 from django.views.generic.edit import DeleteView,UpdateView
-
+from transactions.views import send_transaction_email
 
 
 # Create your views here.
@@ -71,9 +71,10 @@ class PurchaseView(View):
             request.user.account.balance -= room.price
             request.user.account.save()
 
-            messages.success(request, "Purchase successful. Balance deducted.")
-        # send_transaction_email(self.request.user,room.price,"Purchase Message", 'transactions/purchase_email.html' )
-        return redirect('profile')
+            messages.success(request, "Room Booked successful. Balance deducted.")
+            send_transaction_email(self.request.user,room.price,"Room Booked Message", 'transactions/purchase_email.html' )
+            return redirect('profile')
+        
 
 class ReviewDeleteView(DeleteView):
     model = UserReviews

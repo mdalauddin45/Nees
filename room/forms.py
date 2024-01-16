@@ -5,11 +5,22 @@ class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
         fields = '__all__'
-        
+
+STAR_CHOICES = [
+    ('⭐', '⭐'),
+    ('⭐⭐', '⭐⭐'),
+    ('⭐⭐⭐', '⭐⭐⭐'),
+    ('⭐⭐⭐⭐', '⭐⭐⭐⭐'),
+    ('⭐⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'),
+]  
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = UserReviews
-        fields = ['body']
+        fields = ['rating', 'body']
+        widgets = {
+            'rating': forms.Select(choices=STAR_CHOICES),
+            'body': forms.Textarea(attrs={'rows': 4}),
+        }
         
     def __init__(self, *args, **kwargs):
         self.room = kwargs.pop('room', None)

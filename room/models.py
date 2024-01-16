@@ -15,7 +15,7 @@ STAR_CHOICES = [
     ('⭐⭐⭐', '⭐⭐⭐'),
     ('⭐⭐⭐⭐', '⭐⭐⭐⭐'),
     ('⭐⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'),
-]
+]  
 
 # Create your models here.
 class Room(models.Model):

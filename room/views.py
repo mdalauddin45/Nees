@@ -10,39 +10,52 @@ from django.views import View
 from .forms import ReviewForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib import messages
+from .models import UserReviews
+
 
 # Create your views here.
 
 class DetailsRoomView(DetailView):
-    model = models.Room
+    model = Room
+    template_name = 'details_room.html'
     pk_url_kwarg = 'id'
-    template_name = 'post_details.html'
-    
-    def post(self, request, *args, **kwargs):
-        post = self.get_object()
+    context_object_name = 'room'
 
-        comment_form = ReviewForm(request.POST, book=post, user=request.user)
+    def post(self, request, *args, **kwargs):
+        room = self.get_object()
+
+        comment_form = ReviewForm(request.POST, room=room, user=request.user)
 
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            new_comment.post = post
+            new_comment.room = room
+            new_comment.user = request.user
             new_comment.save()
             messages.success(request, 'Your review has been added successfully!')
             return self.get(request, *args, **kwargs)
         else:
-            if not RoomPurchase.objects.filter(user=request.user, book=post).exists():
-                messages.error(request, 'Can not added your review , if you can give this book review must be purchased it bro')
+            if not RoomPurchase.objects.filter(user=request.user, room=room).exists():
+                messages.error(request, 'Can not added your review , if you can give this room review must be purchased it bro')
             return self.get(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = self.object
-        reviews = post.comments.all()
+        room = self.object
+        reviews = room.comments.all()
         review_form= forms.ReviewForm()
             
         context['reviews']= reviews
         context['review_form']= review_form
         return context
+    
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.user = self.user
+        if commit:
+            instance.save()
+        return instance
     
 @method_decorator(login_required, name='dispatch')
 class PurchaseView(View):
@@ -60,4 +73,17 @@ class PurchaseView(View):
         # send_transaction_email(self.request.user,room.price,"Purchase Message", 'transactions/purchase_email.html' )
         return redirect('profile')
 
-           
+def delete_review(request, review_id):
+    # Ensure the request is a POST request
+    if request.method == 'POST':
+        # Get the review object or return a 404 response if not found
+        review = get_object_or_404(UserReviews, id=review_id, user=request.user)
+
+        # Delete the review
+        review.delete()
+
+        messages.success(request, 'Review deleted successfully.')
+        return redirect('profile')  # Redirect to the user's profile or any other desired page
+
+    # If the request is not a POST request, you can handle it as needed
+    return render(request, 'details_room.html')

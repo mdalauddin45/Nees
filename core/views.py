@@ -11,3 +11,11 @@ class HomeView(TemplateView):
         return context
 class AboutView(TemplateView):
     template_name = 'about.html'
+class RoomView(TemplateView):
+    template_name = 'rooms.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        rooms = Room.objects.all()
+        context['rooms'] = rooms
+        return context
+    

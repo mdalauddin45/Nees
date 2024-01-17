@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block head_title %}Library Management System{% endblock %}
+{% block head_title %} {% endblock %}
 {% block content %}
 {% load static %}
 <div class="swiffy-slider slider-nav-visible slider-nav-animation slider-nav-animation-slow slider-item-first-visible" id="animatedText">
@@ -66,7 +66,7 @@
                 Neeshorgo Hotel & Resort brings a refreshed commitment to hospitality leadership to meet the changing travel industry and the bespoke needs of our guests. We provide exceptional service in all of our hotels across the globe and strive to deliver a hospitality experience that is beyond guest expectations.
             </p>
 			<div class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-				<a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold border rounded border-gray-800">Check All Packeg</a>
+				<a href="{% url 'rooms'%}" class="px-8 py-3 font-semibold rounded hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Check All Packeg</a>
 			</div>
 		</div>
 		<div class="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
@@ -86,7 +86,7 @@
             <h1 class="text-5xl font-bold leadi sm:text-4xl">LIKE YOU ARE OUR OWN. </h1>
             <p>With the reassurance, hospitality and warmth of Neeshorgo Hotel & Resort, guests are welcomed to the perfect combination of luxury apartment style living and leading hotels services.</p>
 			<div class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-				<a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold border rounded border-gray-800">Check All Packeg</a>
+				<a href="{% url 'rooms'%}" class="px-8 py-3 font-semibold rounded hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Check All Packeg</a>
 			</div>
 		</div>
 		

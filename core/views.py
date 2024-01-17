@@ -9,3 +9,5 @@ class HomeView(TemplateView):
         rooms = Room.objects.all()
         context['rooms'] = rooms
         return context
+class AboutView(TemplateView):
+    template_name = 'about.html'

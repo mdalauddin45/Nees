@@ -89,7 +89,7 @@
                         <p>Pruchase Date: {{ purchase.purchase_date|date:"F d, Y h:i A" }}</p>
                       </div>
                       <div class="px-6 pt-4 pb-2">
-                          <a href="{% url 'details_room' purchase.id %}" class="flex items-center justify-center w-full p-3 font-semibold tracki bg-white hover:text-white hover:bg-[#c19b76] text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Full info</a>
+                          <a href="{% url 'details_room' purchase.room.id %}" class="flex items-center justify-center w-full p-3 font-semibold tracki bg-white hover:text-white hover:bg-[#c19b76] text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Full info</a>
                       </div>
                   </div>
               </div>

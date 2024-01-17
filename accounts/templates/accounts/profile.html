@@ -10,7 +10,7 @@
     <p class="block sm:inline">{{ error }}</p>
 </div>
 {% endfor %} {% endif %}
-<div class="bg-white px-3 py-4 rounded-xl my-6">
+<div class="bg-white px-3 py-4 rounded-xl my-6 text-black">
   <h4 class="font-bold text-3xl text-left pb-5">Account NO: {{request.user.account.account_no}}</h4>
   <h1 class="font-bold text-3xl text-center pb-5">Update Profile Information</h1>
   <div class="w-full mt-10">
@@ -65,17 +65,17 @@
               </div>
           </div>
           <div class="flex items-center justify-between">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+              <button class="px-8 py-3 font-semibold rounded hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;" type="submit">
                   Update
               </button>
           </div>
       </form>
   </div>
 </div>
-
-<div class="flex flex-wrap -mx-2 bg-white rounded-md mb-20">
-  <div class="container p-2 mx-auto sm:p-4 dark:text-gray-100">
-      <h5 class="font-bold text-xl text-center">All Purchase</h5>
+{% if user_purchases|length > 0 %}
+  <div class="flex flex-wrap -mx-2 bg-white rounded-md mb-20">
+    <div class="container p-2 mx-auto sm:p-4 dark:text-gray-100">
+      <h5 class="font-bold text-xl text-center">All Booked</h5>
       <div class="overflow-x-auto">
         <table class="table-auto mx-auto w-full px-5 rounded-xl mt-8 border dark:border-neutral-500">
           <thead class="bg-purple-900 text-white text-left">
@@ -89,29 +89,31 @@
           </thead>
           <tbody>
             {% for purchase in user_purchases %}
-            <tr class="border-b dark:border-neutral-500">
-              <td class="px-4 py-2">{{purchase.book.id }}</td>
-              <td class="px-4 py-3 text-s border">
-                <span class="px-2 py-1 font-bold leading-tight rounded-sm">
-                  {{ purchase.book.title }}
-                </span>
-              </td>
-              <td class="px-4 py-2">
-                {{ purchase.book.price }} $
-              </td>
-              <td class="px-4 py-2">
-                {{ purchase.after_purchase_balance }} $ 
-              </td>
-              <td class="px-4 py-2">
-                {{ purchase.purchase_date|date:"F d, Y h:i A" }}
-              </td>
-            </tr>
+              <tr class="border-b dark:border-neutral-500">
+                <td class="px-4 py-2">{{ purchase.book.id }}</td>
+                <td class="px-4 py-3 text-s border">
+                  <span class="px-2 py-1 font-bold leading-tight rounded-sm">
+                    {{ purchase.book.title }}
+                  </span>
+                </td>
+                <td class="px-4 py-2">
+                  {{ purchase.book.price }} $
+                </td>
+                <td class="px-4 py-2">
+                  {{ purchase.after_purchase_balance }} $ 
+                </td>
+                <td class="px-4 py-2">
+                  {{ purchase.purchase_date|date:"F d, Y h:i A" }}
+                </td>
+              </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
-</div>
+  </div>
+{% endif %}
+
   
 
 {% endblock %}

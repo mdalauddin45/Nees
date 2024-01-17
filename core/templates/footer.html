@@ -1,11 +1,27 @@
-<footer class="footer bg-blue-900 text-white relative border-b-2 mt-30">
-    <div class="container mx-auto px-6">
-        <div class="mt-5 flex flex-col items-center">
-            <div class="sm:w-2/3 text-center py-0 pb-2">
-                <p class="text-md text-white font-bold mb-2">
-                    © {% now "Y" %} Modified by Ala Uddin
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
+{% load static %}
+<footer class="footer p-10 bg-black text-white">
+    <aside>
+        <a href="/"><img class="h-8 w-full" src="{% static './img/logo.png' %}" alt=""></a>
+    </aside> 
+    <nav>
+      <header class="footer-title">Services</header> 
+      <a class="link link-hover">Branding</a>
+      <a class="link link-hover">Design</a>
+      <a class="link link-hover">Marketing</a>
+      <a class="link link-hover">Advertisement</a>
+    </nav> 
+    <nav>
+      <header class="footer-title">Company</header> 
+      <a class="link link-hover">About us</a>
+      <a class="link link-hover">Contact</a>
+      <a class="link link-hover">Jobs</a>
+      <a class="link link-hover">Press kit</a>
+    </nav> 
+    <nav>
+      <header class="footer-title">Legal</header> 
+      <a class="link link-hover">Terms of use</a>
+      <a class="link link-hover">Privacy policy</a>
+      <a class="link link-hover">Cookie policy</a>
+    </nav>
+  </footer>
+

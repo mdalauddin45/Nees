@@ -11,6 +11,89 @@
     <p class="block sm:inline">{{ error }}</p>
 </div>
 {% endfor %} {% endif %}
+<section class="bg-gray-100 text-black">
+    <div class="flex justify-center min-h-screen">
+        <div class="hidden bg-cover lg:block lg:w-2/5" style="background-image: url('https://neeshorgo.com.bd/wp-content/uploads/2023/07/WhatsApp-Image-2023-07-26-at-08.54.05-1-769x1024.jpeg')">
+        </div>
+
+        <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
+            <div class="w-full">
+                <h1 class="text-2xl font-semibold tracking-wider  capitalize">
+                    Get your free account now.
+                </h1>
+
+                <p class="mt-4">
+                    Let’s get you all set up so you can verify your personal account and begin setting up your profile.
+                </p>
+
+                <form method="post" class=" px-8 pt-6 pb-8 mb-4">
+                    {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}
+                    
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-2/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.first_name.id_for_label }}">
+                                {{ form.username.label }}
+                            </label> {{ form.username }} {% if form.username.errors %} {% for error in form.username.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.first_name.id_for_label }}">
+                                {{ form.first_name.label }}
+                            </label> {{ form.first_name }} {% if form.first_name.errors %} {% for error in form.first_name.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.last_name.id_for_label }}">
+                                {{ form.last_name.label }}
+                            </label> {{ form.last_name }} {% if form.last_name.errors %} {% for error in form.last_name.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.email.id_for_label }}">
+                                {{ form.email.label }}
+                            </label> {{ form.email }} {% if form.email.errors %} {% for error in form.email.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.birth_date.id_for_label }}">
+                                {{ form.birth_date.label }}
+                            </label> {{ form.birth_date }} {% if form.birth_date.errors %} {% for error in form.birth_date.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.password1.id_for_label }}">
+                                {{ form.password1.label }}
+                            </label> {{ form.password1 }} {% if form.password1.errors %} {% for error in form.password1.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="{{ form.password2.id_for_label }}">
+                                {{ form.password2.label }}
+                            </label> {{ form.password2 }} {% if form.password2.errors %} {% for error in form.password2.errors %}
+                            <p class="text-red-600 text-sm italic pb-2">{{ error }}</p>
+                            {% endfor %} {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button class="hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;" type="submit">
+                            Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 <div class="bg-gray-100 px-3 py-4 rounded-xl my-6 text-black">
     <h1 class="font-bold text-3xl text-center pb-5">Sign In</h1>
     <div class="w-full mt-10">

@@ -3,17 +3,17 @@
     <div class="container mx-auto flex-1">
         <a href="/"><img class="h-8 w-full" src="{% static './img/logo.png' %}" alt=""></a>
         <div class="text-md lg:flex-grow px-10 hidden lg:block">
-            <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700-900 hover:font-black mr-4">
+            <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-[#c19b76] hover:text-blue-700-900 hover:font-black mr-4">
                 Home
             </a>
-            <a href="{% url 'rooms' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700-900 hover:font-black mr-4">
+            <a href="{% url 'rooms' %}" class="block mt-4 lg:inline-block lg:mt-0 text-[#c19b76] hover:text-blue-700-900 hover:font-black mr-4">
                 Rooms
             </a>
-            <a href="{% url 'about' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700-900 hover:font-black mr-4">
+            <a href="{% url 'about' %}" class="block mt-4 lg:inline-block lg:mt-0 text-[#c19b76] hover:text-blue-700-900 hover:font-black mr-4">
                 About
             </a>
             {% if request.user.is_authenticated %}
-            <a href="{% url 'deposit' %}" class="block mt-4 lg:inline-block lg:mt-0 text-blue-900 hover:text-blue-700-900 hover:font-black mr-4">
+            <a href="{% url 'deposit' %}" class="block mt-4 lg:inline-block lg:mt-0 text-[#c19b76] hover:text-blue-700-900 hover:font-black mr-4">
                 Deposit
             </a>
             {% endif %}
@@ -25,15 +25,15 @@
       {% if request.user.is_authenticated %}
             <div class="flex w-auto ">
                 <div class="text-blue-900 my-auto font-black px-5 hidden lg:block md:block">Welcome, {{ request.user.first_name }} (balance: {{ request.user.account.balance }})</div>
-                <a href="{% url 'profile' %}" class="hidden lg:block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 mx-2 px-4 rounded focus:outline-none focus:shadow-outline">Profile</a>
-                <a href="{% url 'logout' %}" class="hidden lg:block bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">Logout</a>
+                <a href="{% url 'profile' %}" class="hidden lg:block hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 mx-2 px-5 mt-2 rounded" style="border: 1px solid #c19b76;">Profile</a>
+                <a href="{% url 'logout' %}" class="hidden lg:block hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Logout</a>
             </div>
         {% else %}
             <div class="hidden lg:block">
                 <a href="{% url 'login' %}" class="hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Login</a>
             </div>
             <div class="hidden lg:block" >
-                <a href="{% url 'register' %}" class="hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Register</a>
+                <a href="{% url 'register' %}" class="hover:bg-white text-white bg-[#c19b76] hover:text-[#c19b76] border-[#c19b76] border-opacity-100 font-bold py-2 p px-4 mt-2 rounded" style="border: 1px solid #c19b76;">Register</a>
             </div>
         {% endif %}
       <div class="dropdown dropdown-end block lg:hidden">

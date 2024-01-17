@@ -2,22 +2,97 @@
 {% block head_title %}Library Management System{% endblock %}
 {% block content %}
 {% load static %}
-<div class="container mx-auto flex flex-col md:flex-row items-center my-5 md:my-10 bg-white rounded-2xl">
-
+<div class="swiffy-slider slider-nav-visible slider-nav-animation slider-nav-animation-slow slider-item-first-visible" id="animatedText">
+    <ul class="slider-container" id="container1">
+        <li id="slide1" class="slide-visible">
+            <div>
+                <img src ="{% static './img/carosul1.jpg' %}" alt="..." loading="lazy" class="w-100">
+                <h1 class="display-1 text-4xl text-white custom-animated-text position-absolute top-50 start-50 translate-middle">Neeshorgo Hotel & Resort</h1>
+            </div>
+        </li>
+        <li id="slide2">
+            <div>
+                <img src ="{% static './img/carosul2.jpg' %}" loading="lazy" class="w-100">
+                <h1 class="display-1 text-white custom-animated-text position-absolute top-50 start-50 translate-middle">Woman</h1>
+            </div>
+        </li>
+    </ul>
+    <button type="button" class="slider-nav" aria-label="Go to previous"></button>
+    <button type="button" class="slider-nav slider-nav-next" aria-label="Go to next"></button>
+    <div class="slider-indicators">
+        <button aria-label="Go to slide" class="active"></button>
+        <button aria-label="Go to slide"></button>
+    </div>
+    <style>
+        #animatedText.slider-nav-animation .slider-container div {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 65, 107, 0.43), rgba(0, 65, 107, 0.43));
+        }
     
-    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start pt-12 pb-24 px-6  bg-opacity-70 mx-3">
-        <h1 class="font-bold text-4xl my-4">Welcome to Our Library Management System</h1>
-        <p class="leading-normal mb-4">
-            A Library Management System (LMS) is a comprehensive software solution designed to streamline and automate library operations and services. It serves as a digital platform that assists librarians and library staff in efficiently managing various tasks associated with library resources, users, and administrative functions.
-        </p>
-        <div class="flex justify-end w-full">
-            <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Read More</a>
-        </div>
-    </div>
-    <div class="w-full lg:w-1/2 lg:py-6 text-center ">
-        <img class ="rounded-2xl" src ="{% static './img/home.png' %}"/>
-    </div>
+        #animatedText.slider-nav-animation .slider-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        #animatedText.slider-nav-animation .slider-container .custom-animated-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: opacity 1.5s ease-in-out, transform .95s ease-in-out;
+            transition-delay: .5s;
+            text-align: center;
+            color: white;
+        }
+    
+        #animatedText.slider-nav-animation .slider-container .slide-visible .custom-animated-text {
+            opacity: 1;
+            transform: none;
+        }
+    </style>    
 </div>
+
+<section class="bg-white text-black">
+	<div class="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
+		<div class="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
+            <p class="mt-6 mb-8 text-lg sm:mb-12">Neeshorgo Hotel & Resort
+            </p>
+            <h1 class="text-5xl font-bold leadi sm:text-4xl">Relax in our Resort</h1>
+            <p>
+                Neeshorgo Hotel & Resort brings a refreshed commitment to hospitality leadership to meet the changing travel industry and the bespoke needs of our guests. We provide exceptional service in all of our hotels across the globe and strive to deliver a hospitality experience that is beyond guest expectations.
+            </p>
+			<div class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+				<a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold border rounded border-gray-800">Check All Packeg</a>
+			</div>
+		</div>
+		<div class="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+			<img src ="{% static './img/neeshorgo_hotel_home_main-min.png' %}" alt="" class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+		</div>
+	</div>
+</section>
+<section class="bg-[#1c1c1c] text-white">
+	<div class="container flex flex-col justify-center mx-auto lg:flex-row lg:justify-between">
+		<div class="flex items-center justify-center w-2/4">
+			<img src ="{% static './img/hero.jpg' %}" alt="" class="object-contain">
+		</div>
+        <div class="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
+            <p class="mt-6 mb-8 text-lg sm:mb-12">UNEXPECTED
+            </p>
+            <h1 class="text-5xl font-bold leadi sm:text-4xl">WE TAKE CARE OF YOU</h1>
+            <h1 class="text-5xl font-bold leadi sm:text-4xl">LIKE YOU ARE OUR OWN. </h1>
+            <p>With the reassurance, hospitality and warmth of Neeshorgo Hotel & Resort, guests are welcomed to the perfect combination of luxury apartment style living and leading hotels services.</p>
+			<div class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+				<a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold border rounded border-gray-800">Check All Packeg</a>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
 <div class="flex flex-wrap">
     <div class="relative w-full md:w-3/4 lg:w-4/5 xl:w-5/6">
         <div class="flex flex-wrap">

@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
 from django.contrib import messages
-from room.models import RoomPurchase
+from room.models import RoomPurchase, UserReviews
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -79,11 +79,13 @@ class ProfileView(LoginRequiredMixin, ListView):
 
     def get(self, request):
         user_purchases = RoomPurchase.objects.filter(user=request.user)
+        user_review = UserReviews.objects.filter(user=request.user)
         account_balance = request.user.account.balance
 
         form = UserUpdateForm(instance=request.user)
         return render(request, self.template_name, {
             'user_purchases': user_purchases,
+            'user_review': user_review,
             'account_balance': account_balance,
             'form': form,
         })
